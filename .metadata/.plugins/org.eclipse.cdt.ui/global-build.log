@@ -1,0 +1,28 @@
+14:26:33 **** Incremental Build of configuration Debug for project HackathZee_Sera ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "HackathZee_Sera.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\HackathZee\HackathZee_Sera\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="HackathZee_Sera.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: HackathZee_Sera.elf
+ 
+arm-none-eabi-size  HackathZee_Sera.elf 
+arm-none-eabi-objdump -h -S HackathZee_Sera.elf  > "HackathZee_Sera.list"
+   text	   data	    bss	    dec	    hex	filename
+  24828	     92	   2820	  27740	   6c5c	HackathZee_Sera.elf
+Finished building: default.size.stdout
+ 
+Finished building: HackathZee_Sera.list
+ 
+14:26:42 **** Incremental Build of configuration Debug for project HackathZee_Sera ****
+make -j12 all 
+arm-none-eabi-size  HackathZee_Sera.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24828	     92	   2820	  27740	   6c5c	HackathZee_Sera.elf
+Finished building: default.size.stdout
+ 
+14:28:10 **** Incremental Build of configuration Debug for project target_blackpill ****
+make -j12 all 
+arm-none-eabi-size  target_blackpill.elf 
+   text	   data	    bss	    dec	    hex	filename
+  33764	     92	   4756	  38612	   96d4	target_blackpill.elf
+Finished building: default.size.stdout
+ 
