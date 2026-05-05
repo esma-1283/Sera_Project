@@ -74,9 +74,7 @@
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-char at_command[] = "AT\r\n"; // ESP-01'e göndereceğimiz komut
 
-char rx_buffer[20] = {0}; // ESP-01'den gelecek cevabı tutacağımız yer
 volatile float g_temperature_c = 0.0f;
 volatile float g_humidity_pct = 0.0f;
 volatile float g_flow_l_min = 0.0f;
@@ -1201,22 +1199,7 @@ int main(void)
   ServiceDelay(500U);
   (void)ESP_InitModule();
   (void)ESP_EnsureTcpConnected();
-  /*
-  // 0. AŞAMA: ESP'Yİ FABRİKA AYARLARINA DÖNDÜR VE RESETLE
-    char cmd_rst[] = "AT+RESTORE\r\n";
-    HAL_UART_Transmit(&huart2, (uint8_t*)cmd_rst, strlen(cmd_rst), 1000);
-    ServiceDelay(3000); // Fabrika ayarlarına dönüp yeniden başlaması için 3 saniye ver
 
-    // 1. AŞAMA: Gönderici ESP'yi "Müşteri" (Station) moduna al
-    char cmd_mode[] = "AT+CWMODE=1\r\n";
-    HAL_UART_Transmit(&huart2, (uint8_t*)cmd_mode, strlen(cmd_mode), 1000);
-    ServiceDelay(1000);
-
-    // 2. AŞAMA: Wİ-Fİ AĞINA BAĞLANMA
-    char cmd_wifi[] = "AT+CWJAP=\"" SECURE_LINK_WIFI_SSID "\",\"" SECURE_LINK_WIFI_PASSWORD "\"\r\n";
-    HAL_UART_Transmit(&huart2, (uint8_t*)cmd_wifi, strlen(cmd_wifi), 1000);
-    ServiceDelay(8000); // Ağa katılması için 8 saniye bekle
-  */
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -1225,40 +1208,7 @@ int main(void)
   {
     Sensors_Service();
     Telemetry_Service();
-    /*
-	  Sensors_Service();
-	  	  // 1. ADIM: Doğru IP adresine (192.168.4.1) bağlan
-	  	  char cmd_connect[] = "AT+CIPSTART=\"TCP\",\"192.168.4.1\",80\r\n";
-	  	  HAL_UART_Transmit(&huart2, (uint8_t*)cmd_connect, strlen(cmd_connect), 1000);
-	  	  ServiceDelay(2000);
 
-	  	  // 2. ADIM: Gönderilecek Ham Veriyi Hazırla (Plaintext)
-	  	  char data[100];
-	  	  BuildSensorPayload(data, sizeof(data));
-
-	  	  // --- SİBER GÜVENLİK ADIMI EKLENİYOR ---
-	  	  char encrypted_data[200]; // HEX formatı boyutu 2 katına çıkarır, o yüzden 200 yaptık.
-	  	  Encrypt_To_Hex(data, encrypted_data, secret_key); // Şifrele!
-	  	  int veri_uzunlugu = strlen(encrypted_data); // Artık uzunluk şifreli metnin uzunluğu
-	  	  // --------------------------------------
-
-	  	  // 3. ADIM: Veri boyutunu ESP'ye söyle
-	  	  char cmd_send[30];
-	  	  sprintf(cmd_send, "AT+CIPSEND=%d\r\n", veri_uzunlugu);
-	  	  HAL_UART_Transmit(&huart2, (uint8_t*)cmd_send, strlen(cmd_send), 1000);
-	  	  ServiceDelay(500);
-
-	  	  // 4. ADIM: Asıl ŞİFRELİ veriyi yolla
-	  	  HAL_UART_Transmit(&huart2, (uint8_t*)encrypted_data, veri_uzunlugu, 1000);
-	  	  ServiceDelay(500);
-
-	  	  // 5. ADIM: Bağlantıyı kapat ki şişmesin
-	  	  char cmd_close[] = "AT+CIPCLOSE\r\n";
-	  	  HAL_UART_Transmit(&huart2, (uint8_t*)cmd_close, strlen(cmd_close), 1000);
-
-	  	  // 6. ADIM: 3 saniye dinlen ve tekrarla
-	  	  ServiceDelay(3000);
-    */
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
